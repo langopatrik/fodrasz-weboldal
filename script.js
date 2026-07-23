@@ -7,7 +7,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
    Place ID kereső: https://developers.google.com/maps/documentation/places/web-service/place-id
 ============================================================ */
 const GOOGLE_REVIEWS_CONFIG = {
-  placeId: 'YOUR_GOOGLE_PLACE_ID',
+  placeId: 'ChIJDd7VmdOJREcRBwebzdlcvNo',
 };
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
