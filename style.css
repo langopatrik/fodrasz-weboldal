@@ -198,6 +198,8 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   background:
     linear-gradient(var(--parchment-card),var(--parchment-card)) padding-box,
     linear-gradient(135deg,var(--extreme-1),var(--extreme-2) 55%,var(--extreme-3)) border-box;
+  background-size:auto, 145% 145%;
+  background-position:0 0, center;
   color:var(--forest-900);
 }
 .tab--extreme:focus-visible,
@@ -206,6 +208,8 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .tab.is-active{background:var(--forest-900);border-color:var(--forest-900);color:var(--parchment)}
 .tab--extreme.is-active{
   background:linear-gradient(135deg,var(--extreme-1),var(--extreme-2) 55%,var(--extreme-3));
+  background-size:145% 145%;
+  background-position:center;
   border-color:transparent;color:#fff;
 }
 
