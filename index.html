@@ -84,6 +84,7 @@
   <section class="services" id="services">
     <div class="services__inner">
       <p class="eyebrow reveal">Szolgáltatások</p>
+      <h2 class="reveal">Válassz, ki jön ma a székbe</h2>
       <div class="ornament reveal" aria-hidden="true">
         <svg viewBox="0 0 200 20"><path d="M0 10 H60 M140 10 H200"/><circle cx="100" cy="10" r="4"/><path d="M70 10 C 80 2, 90 18, 100 10 C 110 2, 120 18, 130 10" fill="none"/></svg>
       </div>
@@ -92,7 +93,7 @@
         <button class="tab is-active" role="tab" aria-selected="true" data-tab="ferfi">Férfi</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="noi">Női</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="gyerek">Gyerek</button>
-        <button class="tab tab--extreme" role="tab" aria-selected="false" data-tab="extrem">Extrém színek</button>
+        <button class="tab tab--extreme" role="tab" aria-selected="false" data-tab="extrem">Színek / Festés</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="extrak">Extrák</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="hajapolas">Hajápolás</button>
       </div>
@@ -183,6 +184,51 @@
 
         <div class="panel panel--extreme" id="panel-extrem" role="tabpanel">
           <div class="svc-group">
+            <h3 class="svc-group__title">Hajfestés</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Hajfestés <em class="svc__note">60g festékig</em></span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>alapár</em>8 000 Ft</span>
+                  <span class="svc__price"><em>+g felett</em>120 Ft/g</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Szőkítés</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Szőkítés <em class="svc__note">45g szőkítőig</em></span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>alapár</em>8 000 Ft</span>
+                  <span class="svc__price"><em>+ szőkítő</em>170 Ft/g</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Balayage &amp; Melír</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Balayage</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>alapár</em>10 000 Ft</span>
+                  <span class="svc__price"><em>+ szőkítő</em>170 Ft/g</span>
+                </span>
+              </li>
+              <li class="svc">
+                <span class="svc__name">Melír</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>alapár</em>12 000 Ft</span>
+                  <span class="svc__price"><em>+ szőkítő</em>170 Ft/g</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <p class="svc-promo">40.000 Ft felett ajándék hidratáló hajpakolás a szolgáltatás alatt, és ajándék Wish upon a cloud hajparfüm és ajakápoló.</p>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Extrém színek</h3>
             <ul class="svc-list">
               <li class="svc svc--flat"><span class="svc__name">Egyedi fantázia hajszín (saját keverés)</span><strong class="svc__flat-price">22 900 Ft-tól</strong></li>
               <li class="svc svc--flat"><span class="svc__name">Neon / UV-reaktív festés</span><strong class="svc__flat-price">26 900 Ft-tól</strong></li>
@@ -304,6 +350,7 @@
       <div class="contact__info reveal">
         <p class="eyebrow eyebrow--light">Kapcsolat</p>
         <h2>Várlak szeretettel</h2>
+        <p class="contact__lead">Írj üzenetet, vagy hívj telefonon. szívesen segítünk kiválasztani a hozzád illő stílust, legyen az egy egyszerű vágás vagy egy vadonatúj szín.</p>
 
         <dl class="contact__list">
           <div><dt>Cím</dt><dd>Bartók tér 03-as pavilon, 6725 Szeged</dd></div>
@@ -318,9 +365,6 @@
             <tr><th>Vasárnap</th><td>Zárva</td></tr>
           </tbody>
         </table>
-
-        <p class="contact__lead">Írj üzenetet, vagy hívj telefonon. szívesen segítek kiválasztani a hozzád illő stílust, legyen az egy egyszerű vágás vagy egy vadonatúj szín.</p>
-
         <p class="contact__note">Gyerekbarát váróterem rajzlapokkal, cukorkával és mesekönyvekkel várja a kicsiket, amíg te a székben ülsz.</p>
 
         <div class="socials">
@@ -382,6 +426,11 @@
   </defs>
 </svg>
 
+<!--
+  A Google-térkép egy egyszerű, kulcsot nem igénylő beágyazott iframe.
+  A vélemények szekcióban statikus, kézzel beírt Google-vélemények szerepelnek;
+  az "Összes vélemény megtekintése" link mutat a teljes listára a Google-on.
+-->
 <script src="script.js"></script>
 </body>
 </html>
