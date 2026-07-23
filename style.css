@@ -191,13 +191,17 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .25s var(--ease);
 }
 .tab:hover{border-color:var(--forest-700);color:var(--forest-900)}
+.tab--extreme{position:relative;-webkit-tap-highlight-color:transparent}
 .tab--extreme:hover{
-  border-color:transparent;
-  background:linear-gradient(var(--parchment-card),var(--parchment-card)) padding-box,
+  border:1.5px solid transparent;
+  background:
+    linear-gradient(var(--parchment-card),var(--parchment-card)) padding-box,
     linear-gradient(135deg,var(--extreme-1),var(--extreme-2) 55%,var(--extreme-3)) border-box;
-  box-shadow:none;
   color:var(--forest-900);
 }
+.tab--extreme:focus-visible,
+.tab--extreme:focus,
+.tab--extreme:active{outline:none!important}
 .tab.is-active{background:var(--forest-900);border-color:var(--forest-900);color:var(--parchment)}
 .tab--extreme.is-active{
   background:linear-gradient(135deg,var(--extreme-1),var(--extreme-2) 55%,var(--extreme-3));
