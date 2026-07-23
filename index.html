@@ -1,1 +1,225 @@
-<!doctype html><html lang="hu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Beauty Hair Studio</title><link rel="stylesheet" href="style.css"></head><body><header><h1>Beauty Hair Studio</h1></header><nav><a href="#about">Rólunk</a> | <a href="#services">Szolgáltatások</a> | <a href="#contact">Kapcsolat</a></nav><section id="about"><h2>Rólunk</h2><p>Modern fodrászszalon.</p></section><section id="services"><h2>Szolgáltatások</h2><div class="cards"><div>Klasszikus vágás</div><div>Festés</div><div>Balayage</div></div></section><section id="contact"><h2>Kapcsolat</h2></section><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Citadella Hajszalon — Fodrászat férfiaknak, nőknek és gyerekeknek</title>
+<meta name="description" content="Citadella Hajszalon Szegeden: klasszikus vágás és extrém, egyedi hajszínezés férfiaknak, nőknek és gyerekeknek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Ugrás a tartalomra</a>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__logo">
+      <svg class="nav__crest" viewBox="0 0 60 40" aria-hidden="true"><path d="M2 34 L2 24 L8 24 L8 16 L14 16 L14 22 L20 22 L20 8 L26 8 L26 20 L30 4 L34 20 L40 8 L40 22 L46 22 L46 16 L52 16 L52 24 L58 24 L58 34 Z"/></svg>
+      Citadella
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#about">Rólam</a>
+      <a href="#services">Szolgáltatások</a>
+      <a href="#reviews">Vélemények</a>
+      <a href="#contact">Kapcsolat</a>
+    </nav>
+    <a href="#contact" class="btn btn--ghost btn--small nav__cta">Időpontfoglalás</a>
+    <button class="nav__burger" id="navBurger" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <svg class="hero__skyline" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 220 L0 150 L40 150 L40 120 L70 120 L70 140 L110 140 L110 90 L140 90 L140 60 L155 30 L170 60 L170 100 L210 100 L210 70 L230 40 L250 70 L250 110 L290 110 L290 130 L330 130 L330 100 L350 100 L350 80 L365 55 L380 80 L380 105 L420 105 L420 85 L440 55 L460 85 L460 130 L500 130 L500 110 L520 110 L520 90 L535 65 L550 90 L550 120 L600 120 L600 60 L620 60 L620 30 L640 0 L660 30 L660 60 L680 60 L680 130 L720 130 L720 100 L740 70 L760 100 L760 105 L800 105 L800 80 L815 55 L830 80 L830 100 L870 100 L870 130 L910 130 L910 90 L930 60 L950 90 L950 140 L990 140 L990 110 L1010 110 L1010 90 L1025 65 L1040 90 L1040 150 L1080 150 L1080 170 L1120 170 L1120 140 L1150 140 L1150 160 L1200 160 L1200 220 Z"/>
+    </svg>
+    <div class="hero__corners" aria-hidden="true">
+      <svg class="corner corner--tl" viewBox="0 0 140 60"><path d="M4 20 H90 M4 34 H70"/></svg>
+      <svg class="corner corner--tr" viewBox="0 0 140 60"><path d="M136 20 H50 M136 34 H70"/></svg>
+      <svg class="corner corner--bl" viewBox="0 0 140 60"><path d="M4 40 H90 M4 26 H70"/></svg>
+      <svg class="corner corner--br" viewBox="0 0 140 60"><path d="M136 40 H50 M136 26 H70"/></svg>
+    </div>
+    <div class="hero__inner">
+      <p class="eyebrow eyebrow--light">Fodrászat férfiaknak, nőknek és gyerekeknek · Szeged</p>
+      <h1 class="hero__title">Erőd, ahol a hajad<br><em>szabadon lehet önmaga.</em></h1>
+      <p class="hero__lead">Klasszikus vágástól a legvadabb, egyedi kevert színekig — a Citadella Hajszalonban mindenki megtalálja a saját stílusát, gyerekkortól nagyszülőkorig.</p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">Időpontfoglalás</a>
+        <a href="#services" class="btn btn--outline">Szolgáltatások megtekintése</a>
+      </div>
+      <blockquote class="hero__quote">
+        „Húsz éve nyitottam ki a kaput — azóta minden vendégemet úgy fogadom, mint a családot.”
+        <cite>— Nagy Viktória, tulajdonos</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <svg class="about__watermark" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <use href="#skylinePath"/>
+    </svg>
+    <div class="about__inner">
+      <div class="about__copy reveal">
+        <p class="eyebrow">Rólam</p>
+        <h2>Nem szalon vagyok — hanem egy kis erőd.</h2>
+        <p>A Citadellában egyetlen fodrász van: én. Nincs több szék, nincs több kéz, akire a hajad kerülhet — akár egy takaros férfi nyírásért jössz, akár a kislányod első hajvágásáért, akár egy olyan színért, amit még senki nem próbált előtted, mindig ugyanaz a figyelem és ugyanaz a kéz dolgozik rajta.</p>
+        <p>Ezért van időm arra, hogy meséljek a gyerekeknek vágás közben, hogy megjegyezzem a férfi vendégeim heti rutinját, és hogy éjszakákon át kísérletezzek egy-egy egyedi színreceptúrán azoknak, akik nem félnek kitűnni.</p>
+        <ul class="stats">
+          <li><strong>15+</strong><span>év tapasztalat</span></li>
+          <li><strong>1</strong><span>fodrász — mindig én vágom a hajad</span></li>
+          <li><strong>50+</strong><span>saját keverésű extrém árnyalat</span></li>
+        </ul>
+      </div>
+      <aside class="founder-card reveal">
+        <p class="founder-card__quote">„A legjobb pillanat, amikor valaki meglátja magát a tükörben, és elmosolyodik — legyen szó egy egyszerű férfi nyírásról vagy egy sosem látott színről. Ezért csinálom húsz éve, egyedül, teljes szívvel.”</p>
+        <p class="founder-card__name">Nagy Viktória</p>
+        <p class="founder-card__role">Tulajdonos &amp; fodrász</p>
+        <ul class="founder-card__tags">
+          <li>Férfi vágás</li>
+          <li>Női hajformázás</li>
+          <li>Gyerekhajvágás</li>
+          <li>Extrém színezés</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="services__inner">
+      <p class="eyebrow reveal">Szolgáltatások</p>
+      <h2 class="reveal">Válassz, ki jön ma a székbe</h2>
+      <div class="ornament reveal" aria-hidden="true">
+        <svg viewBox="0 0 200 20"><path d="M0 10 H60 M140 10 H200"/><circle cx="100" cy="10" r="4"/><path d="M70 10 C 80 2, 90 18, 100 10 C 110 2, 120 18, 130 10" fill="none"/></svg>
+      </div>
+
+      <div class="tabs reveal" role="tablist" aria-label="Szolgáltatás kategóriák">
+        <button class="tab is-active" role="tab" aria-selected="true" data-tab="ferfi">Férfi</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="noi">Női</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="gyerek">Gyerek</button>
+        <button class="tab tab--extreme" role="tab" aria-selected="false" data-tab="extrem">Extrém színek</button>
+      </div>
+
+      <div class="panels reveal">
+        <ul class="panel is-active" id="panel-ferfi" role="tabpanel">
+          <li><span>Klasszikus férfi vágás</span><strong>6 900 Ft-tól</strong></li>
+          <li><span>Szakállformázás</span><strong>3 900 Ft-tól</strong></li>
+          <li><span>Borotválás meleg törölközős előkészítéssel</span><strong>4 900 Ft-tól</strong></li>
+        </ul>
+        <ul class="panel" id="panel-noi" role="tabpanel">
+          <li><span>Női hajvágás</span><strong>8 900 Ft-tól</strong></li>
+          <li><span>Mosás és styling</span><strong>6 500 Ft-tól</strong></li>
+          <li><span>Keratinos ápolás</span><strong>15 900 Ft-tól</strong></li>
+        </ul>
+        <ul class="panel" id="panel-gyerek" role="tabpanel">
+          <li><span>Gyerekhajvágás (0–12 év)</span><strong>4 900 Ft-tól</strong></li>
+          <li><span>Első hajvágás — ünnepélyes csomag</span><strong>6 900 Ft-tól</strong></li>
+          <li><span>Copf / fonat alkalmakra</span><strong>5 900 Ft-tól</strong></li>
+        </ul>
+        <ul class="panel panel--extreme" id="panel-extrem" role="tabpanel">
+          <li><span>Egyedi fantázia hajszín (saját keverés)</span><strong>22 900 Ft-tól</strong></li>
+          <li><span>Neon / UV-reaktív festés</span><strong>26 900 Ft-tól</strong></li>
+          <li><span>Ombré extrém árnyalatokkal</span><strong>24 900 Ft-tól</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="reviews__inner">
+      <p class="eyebrow eyebrow--light reveal">Vélemények</p>
+      <h2 class="reveal">Amit a vendégeink mondanak</h2>
+      <div class="reviews__grid">
+        <blockquote class="review reveal">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <p>„A fiam először örömmel ült be a fodrászhoz — ez önmagában megér mindent.”</p>
+          <cite>Anna K.</cite>
+        </blockquote>
+        <blockquote class="review reveal">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <p>„Tíz éve csak ide járok. A hajam sosem volt még ilyen egészséges egy vágás után.”</p>
+          <cite>Gábor M.</cite>
+        </blockquote>
+        <blockquote class="review reveal">
+          <div class="stars" aria-hidden="true">★★★★★</div>
+          <p>„A lila-kék ombré pontosan az lett, amit elképzeltem — talán még annál is jobb.”</p>
+          <cite>Zsuzsa T.</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__info reveal">
+        <p class="eyebrow eyebrow--light">Kapcsolat</p>
+        <h2>Gyere be hozzánk</h2>
+        <p class="contact__lead">Írj nekünk, vagy hívj — szívesen segítünk kiválasztani a hozzád illő stílust, legyen az egy egyszerű nyírás vagy egy vadonatúj szín.</p>
+
+        <dl class="contact__list">
+          <div><dt>Cím</dt><dd>Kárász utca 12, 6720 Szeged</dd></div>
+          <div><dt>Telefon</dt><dd><a href="tel:+36301234567">+36 30 123 4567</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:hello@citadellahajszalon.hu">hello@citadellahajszalon.hu</a></dd></div>
+        </dl>
+
+        <table class="hours">
+          <tbody>
+            <tr><th>Hétfő – Péntek</th><td>9:00 – 19:00</td></tr>
+            <tr><th>Szombat</th><td>9:00 – 14:00</td></tr>
+            <tr><th>Vasárnap</th><td>Zárva</td></tr>
+          </tbody>
+        </table>
+        <p class="contact__note">Gyerekbarát váróterem rajzlapokkal és mesekönyvekkel várja a kicsiket, amíg te a székben ülsz.</p>
+
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
+        </div>
+      </div>
+
+      <form class="contact__form reveal" id="contactForm" novalidate>
+        <div class="field">
+          <label for="name">Név</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Üzenet</label>
+          <textarea id="message" name="message" rows="4" placeholder="Meséld el, milyen stílusra vagy színre gondoltál…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Üzenet küldése</button>
+        <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <a href="#top" class="nav__logo nav__logo--footer">
+      <svg class="nav__crest" viewBox="0 0 60 40" aria-hidden="true"><path d="M2 34 L2 24 L8 24 L8 16 L14 16 L14 22 L20 22 L20 8 L26 8 L26 20 L30 4 L34 20 L40 8 L40 22 L46 22 L46 16 L52 16 L52 24 L58 24 L58 34 Z"/></svg>
+      Citadella
+    </a>
+    <p>Erőd a hajadnak. Szeged belvárosában.</p>
+    <p class="footer__copy">© <span id="year"></span> Citadella Hajszalon. Minden jog fenntartva.</p>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="skylinePath" d="M0 220 L0 150 L40 150 L40 120 L70 120 L70 140 L110 140 L110 90 L140 90 L140 60 L155 30 L170 60 L170 100 L210 100 L210 70 L230 40 L250 70 L250 110 L290 110 L290 130 L330 130 L330 100 L350 100 L350 80 L365 55 L380 80 L380 105 L420 105 L420 85 L440 55 L460 85 L460 130 L500 130 L500 110 L520 110 L520 90 L535 65 L550 90 L550 120 L600 120 L600 60 L620 60 L620 30 L640 0 L660 30 L660 60 L680 60 L680 130 L720 130 L720 100 L740 70 L760 100 L760 105 L800 105 L800 80 L815 55 L830 80 L830 100 L870 100 L870 130 L910 130 L910 90 L930 60 L950 90 L950 140 L990 140 L990 110 L1010 110 L1010 90 L1025 65 L1040 90 L1040 150 L1080 150 L1080 170 L1120 170 L1120 140 L1150 140 L1150 160 L1200 160 L1200 220 Z"/>
+  </defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>
