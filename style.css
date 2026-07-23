@@ -229,6 +229,17 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 
 @media (max-width:900px){.reviews__grid{grid-template-columns:1fr}}
 
+.reviews__summary{font-size:1.05rem;color:var(--brass-400);margin:0 0 2rem}
+.reviews__summary .stars{display:inline;color:var(--brass-400);letter-spacing:.15em;margin-right:.4em}
+.reviews__status{grid-column:1/-1;color:rgba(241,238,223,.7);font-style:italic}
+.review__avatar{width:34px;height:34px;border-radius:50%;margin-right:.6em;vertical-align:middle}
+.review cite{display:inline-flex;align-items:center}
+.reviews__all-link{
+  display:inline-block;margin-top:2rem;color:var(--brass-400);font-weight:600;font-size:.9rem;
+  text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s;
+}
+.reviews__all-link:hover{border-color:var(--brass-400)}
+
 /* ---------- Contact ---------- */
 .contact{padding:6rem 1.5rem;background:var(--parchment-card)}
 .contact__inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}

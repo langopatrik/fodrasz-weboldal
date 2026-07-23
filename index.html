@@ -132,24 +132,12 @@
   <section class="reviews" id="reviews">
     <div class="reviews__inner">
       <p class="eyebrow eyebrow--light reveal">Vélemények</p>
-      <h2 class="reveal">Amit a vendégeink mondanak</h2>
-      <div class="reviews__grid">
-        <blockquote class="review reveal">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>„A fiam először örömmel ült be a fodrászhoz. ez önmagában megér mindent.”</p>
-          <cite>Anna K.</cite>
-        </blockquote>
-        <blockquote class="review reveal">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>„Tíz éve csak ide járok. A hajam sosem volt még ilyen egészséges egy vágás után.”</p>
-          <cite>Gábor M.</cite>
-        </blockquote>
-        <blockquote class="review reveal">
-          <div class="stars" aria-hidden="true">★★★★★</div>
-          <p>„A lila-kék ombré pontosan az lett, amit elképzeltem. talán még annál is jobb.”</p>
-          <cite>Zsuzsa T.</cite>
-        </blockquote>
+      <h2 class="reveal">Amit a vendégeim mondanak</h2>
+      <p class="reviews__summary reveal" id="reviewsSummary" aria-live="polite"></p>
+      <div class="reviews__grid reveal" id="reviewsGrid">
+        <p class="reviews__status">Google-vélemények betöltése…</p>
       </div>
+      <a class="reviews__all-link" id="reviewsAllLink" href="https://www.google.com/maps/search/?api=1&amp;query=Citadella+Hajszalon+Szeged" target="_blank" rel="noopener" hidden>Összes vélemény megtekintése a Google-on →</a>
     </div>
   </section>
 
@@ -219,6 +207,15 @@
   </defs>
 </svg>
 
+<!--
+  GOOGLE-VÉLEMÉNYEK BEÁLLÍTÁSA
+  1) Cseréld le lent a "YOUR_GOOGLE_MAPS_API_KEY" értéket a saját, domainre korlátozott Google Maps API-kulcsodra.
+  2) A Place ID-t a script.js tetején, a GOOGLE_REVIEWS_CONFIG objektumban add meg.
+  Részletes lépések a chatben leírva.
+-->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key:"YOUR_GOOGLE_MAPS_API_KEY",v:"weekly"});
+</script>
 <script src="script.js"></script>
 </body>
 </html>
