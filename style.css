@@ -186,13 +186,14 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .services__inner{max-width:840px;margin:0 auto;text-align:center}
 .tabs{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin-bottom:2.4rem}
 .tab{
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
   font-family:var(--font-body);font-weight:600;font-size:.88rem;letter-spacing:.02em;
   padding:.7em 1.4em;border-radius:999px;border:1.5px solid rgba(14,42,22,.18);
-  background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .25s var(--ease);
+  background:transparent;color:var(--ink-soft);cursor:pointer;transition:color .25s var(--ease), border-color .25s var(--ease);
 }
 .tab:hover{border-color:var(--forest-700);color:var(--forest-900)}
 .tab--extreme{position:relative;-webkit-tap-highlight-color:transparent}
-.tab--extreme:hover{
+.tab--extreme:hover:not(.is-active){
   border:1.5px solid transparent;
   background:
     linear-gradient(var(--parchment-card),var(--parchment-card)) padding-box,
