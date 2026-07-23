@@ -77,14 +77,6 @@
       </div>
       <aside class="founder-card reveal">
         <p class="founder-card__quote">„A legjobb pillanat, amikor valaki meglátja magát a tükörben, és elmosolyodik. Ezért csinálom teljes szívvel és odaadással.”</p>
-        <p class="founder-card__name">Kasza Deniza</p>
-        <p class="founder-card__role">Tulajdonos &amp; fodrász</p>
-        <ul class="founder-card__tags">
-          <li>Férfi vágás</li>
-          <li>Női hajformázás</li>
-          <li>Gyerekhajvágás</li>
-          <li>Extrém színezés</li>
-        </ul>
       </aside>
     </div>
   </section>
@@ -102,29 +94,201 @@
         <button class="tab" role="tab" aria-selected="false" data-tab="noi">Női</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="gyerek">Gyerek</button>
         <button class="tab tab--extreme" role="tab" aria-selected="false" data-tab="extrem">Extrém színek</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="extrak">Extrák</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="hajapolas">Hajápolás</button>
       </div>
 
       <div class="panels reveal">
-        <ul class="panel is-active" id="panel-ferfi" role="tabpanel">
-          <li><span>Klasszikus férfi vágás</span><strong>6 900 Ft-tól</strong></li>
-          <li><span>Szakállformázás</span><strong>3 900 Ft-tól</strong></li>
-          <li><span>Borotválás meleg törölközős előkészítéssel</span><strong>4 900 Ft-tól</strong></li>
-        </ul>
-        <ul class="panel" id="panel-noi" role="tabpanel">
-          <li><span>Női hajvágás</span><strong>8 900 Ft-tól</strong></li>
-          <li><span>Mosás és styling</span><strong>6 500 Ft-tól</strong></li>
-          <li><span>Keratinos ápolás</span><strong>15 900 Ft-tól</strong></li>
-        </ul>
-        <ul class="panel" id="panel-gyerek" role="tabpanel">
-          <li><span>Gyerekhajvágás (0–12 év)</span><strong>4 900 Ft-tól</strong></li>
-          <li><span>Első hajvágás, ünnepélyes csomag</span><strong>6 900 Ft-tól</strong></li>
-          <li><span>Copf / fonat alkalmakra</span><strong>5 900 Ft-tól</strong></li>
-        </ul>
-        <ul class="panel panel--extreme" id="panel-extrem" role="tabpanel">
-          <li><span>Egyedi fantázia hajszín (saját keverés)</span><strong>22 900 Ft-tól</strong></li>
-          <li><span>Neon / UV-reaktív festés</span><strong>26 900 Ft-tól</strong></li>
-          <li><span>Ombré extrém árnyalatokkal</span><strong>24 900 Ft-tól</strong></li>
-        </ul>
+
+        <div class="panel is-active" id="panel-ferfi" role="tabpanel">
+          <div class="svc-group">
+            <h3 class="svc-group__title">Hajvágás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Férfi hajvágás</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>3 500 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>4 500 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Mosás – szárítás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Férfi</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>2 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>3 000 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Egyéb</h3>
+            <ul class="svc-list">
+              <li class="svc svc--flat"><span class="svc__name">Szakállformázás</span><strong class="svc__flat-price">3 900 Ft-tól</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">Borotválás meleg törölközős előkészítéssel</span><strong class="svc__flat-price">4 900 Ft-tól</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-noi" role="tabpanel">
+          <div class="svc-group">
+            <h3 class="svc-group__title">Hajvágás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Női hajvágás</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>4 500 Ft</span>
+                  <span class="svc__price"><em>félhosszú</em>5 500 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>6 500 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>7 500 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Mosás – szárítás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Női</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>2 000 Ft</span>
+                  <span class="svc__price"><em>félhosszú</em>3 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>4 000 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>5 000 Ft</span>
+                </span>
+              </li>
+              <li class="svc">
+                <span class="svc__name">+ Göndörítés / vasalás</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>3 500 Ft</span>
+                  <span class="svc__price"><em>félhosszú</em>4 500 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>5 500 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>6 500 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-gyerek" role="tabpanel">
+          <div class="svc-group">
+            <h3 class="svc-group__title">Hajvágás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Gyerekhajvágás (0–12 év)</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>2 500 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>3 500 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Egyéb</h3>
+            <ul class="svc-list">
+              <li class="svc svc--flat"><span class="svc__name">Első hajvágás, ünnepélyes csomag</span><strong class="svc__flat-price">6 900 Ft-tól</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">Copf / fonat alkalmakra</span><strong class="svc__flat-price">5 900 Ft-tól</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel panel--extreme" id="panel-extrem" role="tabpanel">
+          <div class="svc-group">
+            <ul class="svc-list">
+              <li class="svc svc--flat"><span class="svc__name">Egyedi fantázia hajszín (saját keverés)</span><strong class="svc__flat-price">22 900 Ft-tól</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">Neon / UV-reaktív festés</span><strong class="svc__flat-price">26 900 Ft-tól</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">Ombré extrém árnyalatokkal</span><strong class="svc__flat-price">24 900 Ft-tól</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-extrak" role="tabpanel">
+          <div class="svc-group">
+            <h3 class="svc-group__title">Glitterszálak</h3>
+            <ul class="svc-list">
+              <li class="svc svc--flat"><span class="svc__name">6 tincs</span><strong class="svc__flat-price">1 000 Ft</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">+ tincs</span><strong class="svc__flat-price">200 Ft</strong></li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Fonás</h3>
+            <ul class="svc-list">
+              <li class="svc svc--flat"><span class="svc__name">Fonás</span><strong class="svc__flat-price">3 500 Ft / óra</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">+ apró dísz</span><strong class="svc__flat-price">50 Ft</strong></li>
+              <li class="svc svc--flat"><span class="svc__name">+ nagyobb dísz</span><strong class="svc__flat-price">100 Ft</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-hajapolas" role="tabpanel">
+          <div class="svc-group">
+            <h3 class="svc-group__title">Hajpakolás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Hajpakolás</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>rövid</em>1 500 Ft</span>
+                  <span class="svc__price"><em>félhosszú</em>2 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>3 000 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>3 500 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Szerkezetjavító kezelés</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Kevésbé sérült hajra</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>félhosszú</em>7 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>9 000 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>10 000 Ft</span>
+                </span>
+              </li>
+              <li class="svc">
+                <span class="svc__name">Sérült és töredezett hajra</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>félhosszú</em>8 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>10 000 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>12 000 Ft</span>
+                </span>
+              </li>
+              <li class="svc">
+                <span class="svc__name">Nagyon sérült hajra</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>félhosszú</em>9 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>11 000 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>14 000 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Hajlaminálás</h3>
+            <ul class="svc-list">
+              <li class="svc">
+                <span class="svc__name">Hajlaminálás</span>
+                <span class="svc__prices">
+                  <span class="svc__price"><em>félhosszú</em>10 000 Ft</span>
+                  <span class="svc__price"><em>hosszú</em>13 000 Ft</span>
+                  <span class="svc__price"><em>extra hosszú</em>16 000 Ft</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <h3 class="svc-group__title">Egyéb</h3>
+            <ul class="svc-list">
+              <li class="svc svc--flat"><span class="svc__name">Keratinos ápolás</span><strong class="svc__flat-price">15 900 Ft-tól</strong></li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
