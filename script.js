@@ -69,6 +69,41 @@ form.addEventListener('submit', (e) => {
   form.reset();
 });
 
+/* Contact modal */
+const openContactBtn = document.getElementById('openContactForm');
+const closeContactBtn = document.getElementById('closeContactForm');
+const contactOverlay = document.getElementById('contactModalOverlay');
+let lastFocusedEl = null;
+
+function openContactModal() {
+  lastFocusedEl = document.activeElement;
+  contactOverlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  const firstField = form.querySelector('#name');
+  if (firstField) firstField.focus();
+}
+
+function closeContactModal() {
+  contactOverlay.hidden = true;
+  document.body.style.overflow = '';
+  status.textContent = '';
+  if (lastFocusedEl) lastFocusedEl.focus();
+}
+
+openContactBtn.addEventListener('click', openContactModal);
+closeContactBtn.addEventListener('click', closeContactModal);
+contactOverlay.addEventListener('click', (e) => {
+  if (e.target === contactOverlay) closeContactModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !contactOverlay.hidden) closeContactModal();
+});
+form.addEventListener('submit', () => {
+  if (form.checkValidity()) {
+    setTimeout(closeContactModal, 1200);
+  }
+});
+
 /* ============================================================
    ÉLŐ GOOGLE-VÉLEMÉNYEK
    A Google Maps JavaScript API a Place Details lekérésnél

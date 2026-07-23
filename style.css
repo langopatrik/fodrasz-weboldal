@@ -16,6 +16,7 @@
   --extreme-3:#21D4FD;
   --shadow: 0 24px 48px -22px rgba(8,18,8,0.45);
   --radius: 16px;
+  --nav-h: 76px;
   --font-display:'Cinzel',serif;
   --font-body:'Jost',sans-serif;
   --ease: cubic-bezier(.22,.61,.36,1);
@@ -23,6 +24,7 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
+#about,#services,#reviews,#contact{scroll-margin-top:var(--nav-h)}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
@@ -93,7 +95,7 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   backdrop-filter:blur(10px);
   border-bottom:1px solid rgba(14,42,22,0.1);
 }
-.nav__inner{max-width:1180px;margin:0 auto;padding:.9rem 1.5rem;display:flex;align-items:center;gap:1.5rem}
+.nav__inner{max-width:1180px;margin:0 auto;padding:.9rem 1.5rem;display:flex;align-items:center;gap:1.5rem;min-height:var(--nav-h)}
 .nav__logo{
   display:flex;align-items:center;gap:.55rem;
   font-family:var(--font-display);font-size:1.15rem;font-weight:600;letter-spacing:.03em;
@@ -127,6 +129,7 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   position:relative;min-height:92vh;display:flex;align-items:center;
   background:radial-gradient(120% 100% at 50% 15%, var(--forest-500), var(--forest-900) 55%, var(--night) 100%);
   color:var(--parchment);overflow:hidden;padding:7rem 1.5rem 5rem;
+  scroll-margin-top:var(--nav-h);
 }
 .hero__skyline{position:absolute;bottom:0;left:0;width:100%;height:36%;fill:var(--night);opacity:.9}
 .hero__corners{position:absolute;inset:0;pointer-events:none}
@@ -263,6 +266,14 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .socials a:hover{border-color:var(--brass-600);background:rgba(216,182,90,.12)}
 .socials svg{width:18px;height:18px;stroke:var(--forest-900);fill:none;stroke-width:1.6}
 
+.map-embed{
+  position:relative;width:100%;aspect-ratio:4/3;align-self:start;max-height:340px;
+  border-radius:var(--radius);overflow:hidden;border:1px solid rgba(14,42,22,.12);
+  box-shadow:var(--shadow);
+}
+.map-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (min-width:600px){.map-embed{aspect-ratio:auto;height:100%;max-height:380px;min-height:280px}}
+
 .contact__form{background:var(--parchment);border:1px solid rgba(14,42,22,.1);border-radius:var(--radius);padding:2rem;align-self:start}
 .field{margin-bottom:1.2rem;display:flex;flex-direction:column;gap:.4rem}
 .field label{font-size:.85rem;color:var(--ink-soft)}
@@ -272,6 +283,32 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 }
 .field input:focus,.field textarea:focus{border-color:var(--brass-600);outline:none}
 .form__status{margin:.8rem 0 0;font-size:.9rem;color:var(--forest-700);min-height:1.2em}
+
+.contact__cta{margin-top:2rem}
+
+/* ---------- Contact modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;
+  background:rgba(8,18,8,.55);backdrop-filter:blur(3px);padding:1.5rem;
+  animation:overlayIn .25s var(--ease);
+}
+.modal-overlay[hidden]{display:none}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+.modal{
+  position:relative;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;
+  background:var(--parchment-card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:2.2rem 2rem;animation:modalIn .3s var(--ease);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal h2{margin-bottom:1.2rem}
+.modal .contact__form{border:none;padding:0}
+.modal__close{
+  position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(14,42,22,.15);background:transparent;color:var(--ink-soft);
+  font-size:1.3rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s, color .2s;
+}
+.modal__close:hover{background:var(--forest-900);color:var(--parchment);border-color:var(--forest-900)}
 
 @media (max-width:900px){.contact__inner{grid-template-columns:1fr;gap:2.4rem}}
 

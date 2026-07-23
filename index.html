@@ -167,9 +167,21 @@
           <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
           <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
         </div>
+
+        <button type="button" class="btn btn--primary contact__cta" id="openContactForm">Üzenet küldése</button>
       </div>
 
-      <form class="contact__form reveal" id="contactForm" novalidate>
+      <div class="map-embed reveal">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d670.0528750063531!2d20.144104352719754!3d46.25524380165717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474489d399d5de0d%3A0xdabc5cd9cd9b0707!2sCitadella%20hajszalon!5e0!3m2!1shu!2shu!4v1784802948228!5m2!1shu!2shu" title="Citadella Hajszalon helye a Google Térképen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="contactModalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal__close" id="closeContactForm" aria-label="Bezárás">&times;</button>
+      <h2 id="modalTitle">Írj nekünk</h2>
+      <form class="contact__form" id="contactForm" novalidate>
         <div class="field">
           <label for="name">Név</label>
           <input id="name" name="name" type="text" autocomplete="name" required>
@@ -186,7 +198,7 @@
         <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
-  </section>
+  </div>
 
 </main>
 
