@@ -132,9 +132,9 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .hero__corners{position:absolute;inset:0;pointer-events:none}
 .corner{position:absolute;width:120px;height:52px;stroke:var(--brass-400);stroke-width:1.4;fill:none;opacity:.8}
 .corner--tl{top:1.6rem;left:1.6rem}
-.corner--tr{top:1.6rem;right:1.6rem;transform:scaleX(-1)}
-.corner--bl{bottom:1.6rem;left:1.6rem;transform:scaleY(-1)}
-.corner--br{bottom:1.6rem;right:1.6rem;transform:scale(-1,-1)}
+.corner--tr{top:1.6rem;right:1.6rem}
+.corner--bl{bottom:1.6rem;left:1.6rem}
+.corner--br{bottom:1.6rem;right:1.6rem}
 
 .hero__inner{position:relative;max-width:760px;margin:0 auto;text-align:center}
 .hero__title{font-size:clamp(2.2rem,5.4vw,3.6rem)}
