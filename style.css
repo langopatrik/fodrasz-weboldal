@@ -24,7 +24,7 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-#about,#services,#reviews,#contact{scroll-margin-top:var(--nav-h)}
+#about,#gallery,#services,#reviews,#contact{scroll-margin-top:var(--nav-h)}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important}
@@ -181,6 +181,26 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 @media (max-width:900px){
   .about__inner{grid-template-columns:1fr;gap:2.2rem}
 }
+
+/* ---------- Gallery ---------- */
+.gallery{padding:6rem 1.5rem;background:var(--parchment)}
+.gallery__inner{max-width:1180px;margin:0 auto;text-align:center}
+.gallery__inner h2{margin-bottom:2.6rem}
+.gallery__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;text-align:left;
+}
+.gallery__item{
+  margin:0;position:relative;aspect-ratio:4/5;overflow:hidden;
+  border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(14,42,22,.08);
+}
+.gallery__item img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s var(--ease);
+}
+.gallery__item:hover img{transform:scale(1.06)}
+
+@media (max-width:900px){.gallery__grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.gallery__grid{grid-template-columns:1fr}.gallery{padding:4.5rem 1.5rem}}
 
 /* ---------- Services / tabs ---------- */
 .services{padding:6rem 1.5rem;background:var(--parchment-card)}
