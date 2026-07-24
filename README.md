@@ -1,2 +1,6 @@
 # Fodrász szalon
-Nyisd meg az index.html fájlt.
+
+wishlist:
+- nyelv választó
+- sötét mód
+- galéria
