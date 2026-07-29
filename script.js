@@ -131,17 +131,34 @@ if (galleryTrack && galleryPrev && galleryNext) {
     galleryIndex = nextIndex;
     updateGallery(true);
 
-    const onDone = (e) => {
-      if (e.target !== galleryTrack || e.propertyName !== 'transform') return;
+    let settled = false;
+    let safetyTimer = null;
+
+    const finishAnimation = () => {
+      if (settled) return;
+      settled = true;
       galleryTrack.removeEventListener('transitionend', onDone);
+      clearTimeout(safetyTimer);
       isAnimating = false;
       galleryPrev.disabled = galleryIndex <= 0;
       galleryNext.disabled = galleryIndex >= getMaxIndex();
     };
 
+    const onDone = (e) => {
+      if (e.target !== galleryTrack || e.propertyName !== 'transform') return;
+      finishAnimation();
+    };
+
     /* Note: the gallery slide is intentionally exempt from
        prefers-reduced-motion (see style.css), so it always transitions. */
     galleryTrack.addEventListener('transitionend', onDone);
+
+    /* Safety net: transitionend won't fire if the computed transform
+       happens to match the previous value (e.g. two slide widths land on
+       the same pixel translateX, which got more likely once Instagram
+       embeds started resizing asynchronously). Without this, the arrows
+       could stay disabled forever. 700ms = .6s transition + buffer. */
+    safetyTimer = setTimeout(finishAnimation, 700);
   };
 
   galleryPrev.addEventListener('click', () => goTo(-1));
