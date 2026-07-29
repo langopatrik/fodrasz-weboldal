@@ -193,7 +193,7 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   display:flex;align-items:center;gap:1rem;
 }
 .gallery__viewport{
-  flex:1 1 auto;overflow:hidden;
+  flex:1 1 auto;overflow-x:hidden;overflow-y:visible;
 }
 .gallery__track{
   display:flex;gap:1.3rem;text-align:left;

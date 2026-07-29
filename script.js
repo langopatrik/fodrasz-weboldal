@@ -77,6 +77,24 @@ if (galleryTrack && galleryPrev && galleryNext) {
 
   /* animate: true when triggered by a nav click (should transition),
      false when just re-syncing position after resize/load. */
+  /* Instagram's embed.js sets a fixed pixel width/height on each iframe
+     the moment it processes a blockquote. Our CSS then stretches
+     .instagram-media to fill the flex item (width:100%), but the iframe's
+     *height* doesn't follow along on its own — so whenever the flex-item
+     width changes (a breakpoint switch, resize, orientation change), the
+     embed can end up mismatched and look cropped. Asking Instagram to
+     reprocess fixes the height to match the new width. Throttled since
+     resize can fire rapidly. */
+  let reprocessTimer = null;
+  const reprocessInstagramEmbeds = () => {
+    clearTimeout(reprocessTimer);
+    reprocessTimer = setTimeout(() => {
+      if (window.instgrm && window.instgrm.Embeds) {
+        window.instgrm.Embeds.process();
+      }
+    }, 150);
+  };
+
   const updateGallery = (animate = false) => {
     const maxIndex = getMaxIndex();
     if (galleryIndex > maxIndex) galleryIndex = maxIndex;
@@ -91,6 +109,7 @@ if (galleryTrack && galleryPrev && galleryNext) {
       // force reflow so the transition:none actually applies before we restore it
       void galleryTrack.offsetHeight;
       galleryTrack.style.transition = '';
+      reprocessInstagramEmbeds();
     } else {
       galleryTrack.style.transform = `translateX(-${galleryIndex * step}px)`;
     }
