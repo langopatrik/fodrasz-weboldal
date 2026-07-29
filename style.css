@@ -186,11 +186,18 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .gallery{padding:6rem 1.5rem;background:var(--parchment)}
 .gallery__inner{max-width:1180px;margin:0 auto;text-align:center}
 .gallery__inner h2{margin-bottom:2.6rem}
-.gallery__grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;text-align:left;
+.gallery__slider{
+  display:flex;align-items:center;gap:1rem;
+}
+.gallery__viewport{
+  flex:1 1 auto;overflow:hidden;
+}
+.gallery__track{
+  display:flex;gap:1.3rem;text-align:left;
+  transition:transform .5s var(--ease);will-change:transform;
 }
 .gallery__item{
-  margin:0;position:relative;aspect-ratio:4/5;overflow:hidden;
+  margin:0;position:relative;overflow:hidden;flex:0 0 calc((100% - 2*1.3rem)/3);
   border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(14,42,22,.08);
 }
 .gallery__item img{
@@ -201,12 +208,26 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 
 .gallery__item--instagram{
   aspect-ratio:auto;overflow:visible;background:transparent;
-  border:none;box-shadow:none;display:flex;justify-content:center;
+  border:none;box-shadow:none;display:flex;justify-content:center;align-items:flex-start;
 }
 .gallery__item--instagram .instagram-media{width:100%!important}
 
-@media (max-width:900px){.gallery__grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.gallery__grid{grid-template-columns:1fr}.gallery{padding:4.5rem 1.5rem}}
+.gallery__arrow{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  width:2.75rem;height:2.75rem;border-radius:50%;
+  background:var(--parchment-card,#fff);border:1px solid rgba(14,42,22,.15);
+  box-shadow:var(--shadow);cursor:pointer;transition:background .25s var(--ease),transform .25s var(--ease),opacity .25s var(--ease);
+}
+.gallery__arrow svg{width:1.1rem;height:1.1rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gallery__arrow:hover{transform:translateY(-2px)}
+.gallery__arrow:disabled{opacity:.35;cursor:default;transform:none}
+
+@media (max-width:900px){.gallery__item{flex:0 0 calc((100% - 1.3rem)/2)}}
+@media (max-width:520px){
+  .gallery{padding:4.5rem 1.5rem}
+  .gallery__item{flex:0 0 88%}
+  .gallery__arrow{width:2.25rem;height:2.25rem}
+}
 
 /* ---------- Services / tabs ---------- */
 .services{padding:6rem 1.5rem;background:var(--parchment-card)}

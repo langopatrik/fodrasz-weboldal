@@ -90,22 +90,34 @@
       <div class="ornament reveal" aria-hidden="true">
         <svg viewBox="0 0 200 20"><path d="M0 10 H60 M140 10 H200"/><circle cx="100" cy="10" r="4"/><path d="M70 10 C 80 2, 90 18, 100 10 C 110 2, 120 18, 130 10" fill="none"/></svg>
       </div>
-      <div class="gallery__grid reveal">
-        <figure class="gallery__item gallery__item--instagram">
-          <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DbNhe0Wt6Tu/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-        </figure>
+      <div class="gallery__slider reveal">
+        <button type="button" class="gallery__arrow gallery__arrow--prev" id="galleryPrev" aria-label="Előző képek">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20"/></svg>
+        </button>
 
-        <figure class="gallery__item gallery__item--instagram">
-          <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DaV7l-VkZ8U/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-        </figure>
+        <div class="gallery__viewport">
+          <div class="gallery__track" id="galleryTrack">
+            <figure class="gallery__item gallery__item--instagram">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DbNhe0Wt6Tu/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </figure>
 
-        <figure class="gallery__item gallery__item--instagram">
-          <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DaAQVP-tmMN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-        </figure>
+            <figure class="gallery__item gallery__item--instagram">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DaV7l-VkZ8U/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </figure>
 
-        <figure class="gallery__item gallery__item--instagram">
-          <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DbNl6U6tvvm/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
-        </figure>
+            <figure class="gallery__item gallery__item--instagram">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DaAQVP-tmMN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </figure>
+
+            <figure class="gallery__item gallery__item--instagram">
+              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DbNl6U6tvvm/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>
+            </figure>
+          </div>
+        </div>
+
+        <button type="button" class="gallery__arrow gallery__arrow--next" id="galleryNext" aria-label="Következő képek">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20"/></svg>
+        </button>
       </div>
     </div>
   </section>

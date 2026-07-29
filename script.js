@@ -46,6 +46,68 @@ tabs.forEach(tab => {
   });
 });
 
+/* Gallery slider */
+const galleryTrack = document.getElementById('galleryTrack');
+const galleryPrev = document.getElementById('galleryPrev');
+const galleryNext = document.getElementById('galleryNext');
+
+if (galleryTrack && galleryPrev && galleryNext) {
+  let galleryIndex = 0;
+
+  const getSlideStep = () => {
+    const firstItem = galleryTrack.children[0];
+    if (!firstItem) return 0;
+    const trackStyles = getComputedStyle(galleryTrack);
+    const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+    return firstItem.getBoundingClientRect().width + gap;
+  };
+
+  const getVisibleCount = () => {
+    const viewport = galleryTrack.parentElement;
+    const step = getSlideStep();
+    if (!step) return 1;
+    return Math.max(1, Math.round(viewport.clientWidth / step));
+  };
+
+  const getMaxIndex = () => {
+    const total = galleryTrack.children.length;
+    return Math.max(0, total - getVisibleCount());
+  };
+
+  const updateGallery = () => {
+    const maxIndex = getMaxIndex();
+    if (galleryIndex > maxIndex) galleryIndex = maxIndex;
+    if (galleryIndex < 0) galleryIndex = 0;
+
+    const step = getSlideStep();
+    galleryTrack.style.transform = `translateX(-${galleryIndex * step}px)`;
+
+    galleryPrev.disabled = galleryIndex <= 0;
+    galleryNext.disabled = galleryIndex >= maxIndex;
+  };
+
+  galleryPrev.addEventListener('click', () => {
+    galleryIndex -= 1;
+    updateGallery();
+  });
+
+  galleryNext.addEventListener('click', () => {
+    galleryIndex += 1;
+    updateGallery();
+  });
+
+  window.addEventListener('resize', updateGallery);
+
+  /* Instagram embeds load asynchronously and can change the slide widths
+     once they render, so re-measure a few times after load. */
+  updateGallery();
+  window.addEventListener('load', () => {
+    updateGallery();
+    setTimeout(updateGallery, 800);
+    setTimeout(updateGallery, 2000);
+  });
+}
+
 /* Contact form — no backend wired up yet, so just confirm receipt locally */
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
