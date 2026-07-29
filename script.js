@@ -53,6 +53,7 @@ const galleryNext = document.getElementById('galleryNext');
 
 if (galleryTrack && galleryPrev && galleryNext) {
   let galleryIndex = 0;
+  let isAnimating = false;
 
   const getSlideStep = () => {
     const firstItem = galleryTrack.children[0];
@@ -74,37 +75,70 @@ if (galleryTrack && galleryPrev && galleryNext) {
     return Math.max(0, total - getVisibleCount());
   };
 
-  const updateGallery = () => {
+  /* animate: true when triggered by a nav click (should transition),
+     false when just re-syncing position after resize/load. */
+  const updateGallery = (animate = false) => {
     const maxIndex = getMaxIndex();
     if (galleryIndex > maxIndex) galleryIndex = maxIndex;
     if (galleryIndex < 0) galleryIndex = 0;
 
     const step = getSlideStep();
-    galleryTrack.style.transform = `translateX(-${galleryIndex * step}px)`;
+
+    if (!animate) {
+      /* jump instantly (no visible slide) when just resyncing layout */
+      galleryTrack.style.transition = 'none';
+      galleryTrack.style.transform = `translateX(-${galleryIndex * step}px)`;
+      // force reflow so the transition:none actually applies before we restore it
+      void galleryTrack.offsetHeight;
+      galleryTrack.style.transition = '';
+    } else {
+      galleryTrack.style.transform = `translateX(-${galleryIndex * step}px)`;
+    }
 
     galleryPrev.disabled = galleryIndex <= 0;
     galleryNext.disabled = galleryIndex >= maxIndex;
   };
 
-  galleryPrev.addEventListener('click', () => {
-    galleryIndex -= 1;
-    updateGallery();
-  });
+  const goTo = (direction) => {
+    if (isAnimating) return;
+    const maxIndex = getMaxIndex();
+    const nextIndex = galleryIndex + direction;
+    if (nextIndex < 0 || nextIndex > maxIndex) return;
 
-  galleryNext.addEventListener('click', () => {
-    galleryIndex += 1;
-    updateGallery();
-  });
+    isAnimating = true;
+    galleryPrev.disabled = true;
+    galleryNext.disabled = true;
 
-  window.addEventListener('resize', updateGallery);
+    galleryIndex = nextIndex;
+    updateGallery(true);
+
+    const onDone = (e) => {
+      if (e.target !== galleryTrack || e.propertyName !== 'transform') return;
+      galleryTrack.removeEventListener('transitionend', onDone);
+      isAnimating = false;
+      galleryPrev.disabled = galleryIndex <= 0;
+      galleryNext.disabled = galleryIndex >= getMaxIndex();
+    };
+
+    if (prefersReducedMotion) {
+      onDone({ target: galleryTrack, propertyName: 'transform' });
+    } else {
+      galleryTrack.addEventListener('transitionend', onDone);
+    }
+  };
+
+  galleryPrev.addEventListener('click', () => goTo(-1));
+  galleryNext.addEventListener('click', () => goTo(1));
+
+  window.addEventListener('resize', () => updateGallery(false));
 
   /* Instagram embeds load asynchronously and can change the slide widths
      once they render, so re-measure a few times after load. */
-  updateGallery();
+  updateGallery(false);
   window.addEventListener('load', () => {
-    updateGallery();
-    setTimeout(updateGallery, 800);
-    setTimeout(updateGallery, 2000);
+    updateGallery(false);
+    setTimeout(() => updateGallery(false), 800);
+    setTimeout(() => updateGallery(false), 2000);
   });
 }
 

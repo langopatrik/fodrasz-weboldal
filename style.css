@@ -194,8 +194,9 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 }
 .gallery__track{
   display:flex;gap:1.3rem;text-align:left;
-  transition:transform .5s var(--ease);will-change:transform;
+  transition:transform .6s var(--ease);will-change:transform;
 }
+.gallery__arrow[disabled]{pointer-events:none}
 .gallery__item{
   margin:0;position:relative;overflow:hidden;flex:0 0 calc((100% - 2*1.3rem)/3);
   border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(14,42,22,.08);
