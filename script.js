@@ -120,11 +120,9 @@ if (galleryTrack && galleryPrev && galleryNext) {
       galleryNext.disabled = galleryIndex >= getMaxIndex();
     };
 
-    if (prefersReducedMotion) {
-      onDone({ target: galleryTrack, propertyName: 'transform' });
-    } else {
-      galleryTrack.addEventListener('transitionend', onDone);
-    }
+    /* Note: the gallery slide is intentionally exempt from
+       prefers-reduced-motion (see style.css), so it always transitions. */
+    galleryTrack.addEventListener('transitionend', onDone);
   };
 
   galleryPrev.addEventListener('click', () => goTo(-1));
