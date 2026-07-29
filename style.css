@@ -212,6 +212,23 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 }
 .gallery__item--instagram .instagram-media{width:100%!important}
 
+.gallery__fallback{display:none}
+.gallery__item--broken{
+  aspect-ratio:4/5;overflow:hidden;background:var(--parchment-card,#f4f1ea);
+  border:1px solid rgba(14,42,22,.08);box-shadow:var(--shadow);
+}
+.gallery__item--broken .instagram-media{display:none}
+.gallery__item--broken .gallery__fallback{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
+  width:100%;height:100%;padding:1.5rem;text-align:center;
+  color:var(--ink,#0e2a16);text-decoration:none;
+  background:linear-gradient(160deg,rgba(14,42,22,.06),rgba(14,42,22,.02));
+  transition:background .3s var(--ease);
+}
+.gallery__item--broken .gallery__fallback:hover{background:linear-gradient(160deg,rgba(14,42,22,.1),rgba(14,42,22,.04))}
+.gallery__fallback-icon{width:2.4rem;height:2.4rem;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+.gallery__fallback span{font-family:var(--font-body,inherit);font-size:.95rem;line-height:1.4}
+
 .gallery__arrow{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;
   width:2.75rem;height:2.75rem;border-radius:50%;

@@ -46,6 +46,51 @@ tabs.forEach(tab => {
   });
 });
 
+/* Gallery: fall back to a placeholder card if an Instagram embed doesn't render
+   (e.g. the embed script is blocked, offline preview, slow network). */
+const galleryFigures = document.querySelectorAll('.gallery__item--instagram');
+
+function markBrokenEmbeds() {
+  galleryFigures.forEach(figure => {
+    const rendered = figure.querySelector('.instagram-media iframe');
+    if (!rendered) figure.classList.add('gallery__item--broken');
+  });
+  window.dispatchEvent(new Event('resize'));
+}
+
+function clearBrokenIfRendered() {
+  let allRendered = true;
+  galleryFigures.forEach(figure => {
+    const rendered = figure.querySelector('.instagram-media iframe');
+    if (rendered) {
+      figure.classList.remove('gallery__item--broken');
+    } else {
+      allRendered = false;
+    }
+  });
+  window.dispatchEvent(new Event('resize'));
+  return allRendered;
+}
+
+if (galleryFigures.length) {
+  const igScript = document.querySelector('script[src*="instagram.com/embed.js"]');
+
+  /* Script blocked entirely (e.g. no network access) → fall back right away */
+  if (igScript) {
+    igScript.addEventListener('error', markBrokenEmbeds);
+  } else {
+    markBrokenEmbeds();
+  }
+
+  /* Otherwise give the embed script a little time to render, checking a
+     few times since Instagram processes embeds asynchronously */
+  [1500, 3000, 5000].forEach(delay => {
+    setTimeout(() => {
+      if (!clearBrokenIfRendered()) markBrokenEmbeds();
+    }, delay);
+  });
+}
+
 /* Gallery slider */
 const galleryTrack = document.getElementById('galleryTrack');
 const galleryPrev = document.getElementById('galleryPrev');
