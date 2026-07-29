@@ -199,6 +199,12 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 }
 .gallery__item:hover img{transform:scale(1.06)}
 
+.gallery__item--instagram{
+  aspect-ratio:auto;overflow:visible;background:transparent;
+  border:none;box-shadow:none;display:flex;justify-content:center;
+}
+.gallery__item--instagram .instagram-media{width:100%!important}
+
 @media (max-width:900px){.gallery__grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.gallery__grid{grid-template-columns:1fr}.gallery{padding:4.5rem 1.5rem}}
 
