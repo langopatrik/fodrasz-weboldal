@@ -233,6 +233,10 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .gallery__arrow:hover{transform:translateY(-2px)}
 .gallery__arrow:disabled{opacity:.35;cursor:default}
 
+@media (max-width:520px){
+  .gallery__arrow:disabled{transform:translateY(-50%);}
+}
+
 /* Three items per row only work once each can actually be >=326px wide:
    3*326 + 2 gaps(1.3rem) + section padding(1.5rem*2) ≈ 1068px. Below that,
    rather than dropping to a two-up tier (which has its own cramped range
