@@ -214,7 +214,7 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   aspect-ratio:auto;overflow:visible;background:transparent;
   border:none;box-shadow:none;display:flex;justify-content:center;align-items:flex-start;
 }
-.gallery__item--instagram .instagram-media{width:100%!important}
+.gallery__item--instagram .instagram-media{width:100%!important;min-width:0!important;max-width:100%!important}
 
 .gallery__arrow{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;
