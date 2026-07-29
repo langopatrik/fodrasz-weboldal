@@ -234,22 +234,27 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .gallery__arrow:disabled{opacity:.35;cursor:default;transform:none}
 
 /* Three items per row only work once each can actually be >=326px wide:
-   3*326 + 2 gaps(1.3rem) + section padding(1.5rem*2) ≈ 1068px. */
-@media (max-width:1080px){.gallery__item{flex:0 0 calc((100% - 1.3rem)/2)}}
-
-/* Below this, even two-up drops under 326px
-   (2*326 + 1 gap(1.3rem) + padding(1.5rem*2) ≈ 721px), so switch to a
-   single full-width slide. Side-by-side arrows are dropped from the flex
-   row here too — at these viewport widths there isn't 326px of embed
-   *plus* two 2.75rem arrow buttons *plus* their gaps left over, which is
-   exactly what was squeezing the iframe on narrow phones. Instead the
-   arrows float on top of the slide as small overlay buttons, so the full
-   viewport width goes to the embed. */
-@media (max-width:720px){
+   3*326 + 2 gaps(1.3rem) + section padding(1.5rem*2) ≈ 1068px. Below that,
+   rather than dropping to a two-up tier (which has its own cramped range
+   before it too falls under 326px around ~721px, and was the buggy tablet
+   layout), go straight to a single full-width slide, keeping the arrows
+   beside it as long as there's room. */
+@media (max-width:1080px){
   .gallery{padding:4.5rem 1rem}
+  .gallery__item{flex:0 0 100%}
+}
+
+/* Below this, a single slide can no longer fit *and* keep side arrows:
+   326(embed) + 2*44(2.75rem arrows) + 2*16(1rem gaps) + 2*16(1rem section
+   padding) ≈ 478px is the bare minimum, so 520px gives a small safety
+   margin. Below that, drop the side arrows from the flex row — there
+   isn't 326px of embed *plus* two arrow buttons *plus* their gaps left
+   over, which is exactly what was squeezing the iframe on narrow phones —
+   and float them as small overlay buttons on top of the slide instead, so
+   the full viewport width goes to the embed. */
+@media (max-width:520px){
   .gallery__slider{display:block;position:relative}
   .gallery__viewport{width:100%;overflow-x:hidden;overflow-y:visible}
-  .gallery__item{flex:0 0 100%}
   .gallery__arrow{
     position:absolute;top:50%;transform:translateY(-50%);z-index:5;
     width:2.25rem;height:2.25rem;opacity:.92;
