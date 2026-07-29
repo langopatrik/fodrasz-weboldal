@@ -209,8 +209,10 @@ form.addEventListener('submit', (e) => {
     status.textContent = 'Kérjük, tölts ki minden mezőt.';
     return;
   }
+
   status.textContent = 'Köszönjük! Hamarosan felvesszük veled a kapcsolatot.';
   form.reset();
+  setTimeout(closeContactModal, 1200);
 });
 
 /* Contact modal */
