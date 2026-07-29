@@ -201,7 +201,7 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 }
 .gallery__arrow[disabled]{pointer-events:none}
 .gallery__item{
-  margin:0;position:relative;overflow:hidden;flex:0 0 calc((100% - 2*1.3rem)/3);
+  margin:0;position:relative;overflow:hidden;flex:0 0 calc((100% - 2*1.3rem)/3);min-width:0;
   border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(14,42,22,.08);
 }
 .gallery__item img{

@@ -67,7 +67,7 @@ if (galleryTrack && galleryPrev && galleryNext) {
     const viewport = galleryTrack.parentElement;
     const step = getSlideStep();
     if (!step) return 1;
-    return Math.max(1, Math.round(viewport.clientWidth / step));
+    return Math.max(1, Math.floor(viewport.clientWidth / step));
   };
 
   const getMaxIndex = () => {
@@ -164,7 +164,27 @@ if (galleryTrack && galleryPrev && galleryNext) {
   galleryPrev.addEventListener('click', () => goTo(-1));
   galleryNext.addEventListener('click', () => goTo(1));
 
-  window.addEventListener('resize', () => updateGallery(false));
+  /* Debounce resize, and never snap the track while a slide transition
+     is running — that cancels the animation with a visible "jump".
+     Instead, wait until the animation finishes (isAnimating flips back
+     to false in finishAnimation) and re-check on a short interval. */
+  let resizeTimer = null;
+  const handleResize = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (isAnimating) {
+        const waitForAnimation = setInterval(() => {
+          if (!isAnimating) {
+            clearInterval(waitForAnimation);
+            updateGallery(false);
+          }
+        }, 50);
+        return;
+      }
+      updateGallery(false);
+    }, 150);
+  };
+  window.addEventListener('resize', handleResize);
 
   /* Instagram embeds load asynchronously and can change the slide widths
      once they render, so re-measure a few times after load. */
