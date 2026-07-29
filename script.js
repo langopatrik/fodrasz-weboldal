@@ -63,16 +63,20 @@ if (galleryTrack && galleryPrev && galleryNext) {
     return firstItem.getBoundingClientRect().width + gap;
   };
 
-  const getVisibleCount = () => {
+  /* Compute the last valid index from the track's actual scrollable
+     distance rather than "how many items fit" — counting items is
+     inherently rounding-prone (fractional item widths at odd viewport
+     sizes), which either disables "next" a click early or lets it go
+     one click too far and shove a fully-visible item out of frame.
+     Measuring scrollWidth - clientWidth directly is exact. */
+  const getMaxIndex = () => {
     const viewport = galleryTrack.parentElement;
     const step = getSlideStep();
-    if (!step) return 1;
-    return Math.max(1, Math.floor(viewport.clientWidth / step));
-  };
-
-  const getMaxIndex = () => {
-    const total = galleryTrack.children.length;
-    return Math.max(0, total - getVisibleCount());
+    if (!step) return 0;
+    const maxScroll = galleryTrack.scrollWidth - viewport.clientWidth;
+    if (maxScroll <= 0) return 0;
+    // small epsilon so subpixel layout rounding doesn't add a phantom step
+    return Math.max(0, Math.ceil((maxScroll - 1) / step));
   };
 
   /* animate: true when triggered by a nav click (should transition),
