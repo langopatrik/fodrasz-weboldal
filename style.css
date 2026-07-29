@@ -229,7 +229,7 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 @media (max-width:900px){.gallery__item{flex:0 0 calc((100% - 1.3rem)/2)}}
 @media (max-width:520px){
   .gallery{padding:4.5rem 1.5rem}
-  .gallery__item{flex:0 0 88%}
+  .gallery__item{flex:0 0 100%}
   .gallery__arrow{width:2.25rem;height:2.25rem}
 }
 
