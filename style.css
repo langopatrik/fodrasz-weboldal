@@ -214,7 +214,14 @@ ul,dl,table{margin:0;padding:0;list-style:none}
   aspect-ratio:auto;overflow:visible;background:transparent;
   border:none;box-shadow:none;display:flex;justify-content:center;align-items:flex-start;
 }
-.gallery__item--instagram .instagram-media{width:100%!important;min-width:0!important;max-width:100%!important}
+/* Instagram's own docs specify 326px as the safe minimum render width for
+   an embed (below that the iframe's internal layout starts breaking:
+   squashed avatar/header, wrapping buttons, clipped caption). We treat
+   326px as a hard floor here instead of letting it shrink to 0 — see the
+   breakpoints below, which are sized around this same number so the
+   slider never asks the embed to go narrower than it safely can. */
+.gallery__item--instagram .instagram-media{width:100%!important;min-width:326px!important;max-width:100%!important}
+.gallery__item--instagram{min-width:326px}
 
 .gallery__arrow{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;
@@ -226,11 +233,40 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .gallery__arrow:hover{transform:translateY(-2px)}
 .gallery__arrow:disabled{opacity:.35;cursor:default;transform:none}
 
-@media (max-width:900px){.gallery__item{flex:0 0 calc((100% - 1.3rem)/2)}}
-@media (max-width:520px){
-  .gallery{padding:4.5rem 1.5rem}
+/* Three items per row only work once each can actually be >=326px wide:
+   3*326 + 2 gaps(1.3rem) + section padding(1.5rem*2) ≈ 1068px. */
+@media (max-width:1080px){.gallery__item{flex:0 0 calc((100% - 1.3rem)/2)}}
+
+/* Below this, even two-up drops under 326px
+   (2*326 + 1 gap(1.3rem) + padding(1.5rem*2) ≈ 721px), so switch to a
+   single full-width slide. Side-by-side arrows are dropped from the flex
+   row here too — at these viewport widths there isn't 326px of embed
+   *plus* two 2.75rem arrow buttons *plus* their gaps left over, which is
+   exactly what was squeezing the iframe on narrow phones. Instead the
+   arrows float on top of the slide as small overlay buttons, so the full
+   viewport width goes to the embed. */
+@media (max-width:720px){
+  .gallery{padding:4.5rem 1rem}
+  .gallery__slider{display:block;position:relative}
+  .gallery__viewport{width:100%;overflow-x:hidden;overflow-y:visible}
   .gallery__item{flex:0 0 100%}
-  .gallery__arrow{width:2.25rem;height:2.25rem}
+  .gallery__arrow{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+    width:2.25rem;height:2.25rem;opacity:.92;
+  }
+  .gallery__arrow:hover{transform:translateY(-52%)}
+  .gallery__arrow--prev{left:.4rem}
+  .gallery__arrow--next{right:.4rem}
+}
+
+/* On very small phones, shave the section padding further so the slide
+   can get as close to the 326px floor as the screen physically allows
+   (anything under ~350px viewport width can't hit 326px without going
+   edge-to-edge, so this is the practical minimum, not the embed's). */
+@media (max-width:360px){
+  .gallery{padding:4.5rem .5rem}
+  .gallery__arrow--prev{left:.15rem}
+  .gallery__arrow--next{right:.15rem}
 }
 
 /* ---------- Services / tabs ---------- */
