@@ -201,7 +201,7 @@ if (galleryTrack && galleryPrev && galleryNext) {
 }
 
 /* Public Calendar availability */
-const publicCalendarIcsUrl = '/api/calendar.ics';
+const publicCalendarDataUrl = 'calendar-data.json';
 const availabilityList = document.getElementById('availabilityList');
 
 function parseIcsDate(value) {
@@ -396,19 +396,40 @@ function renderAvailabilityCalendar(slotsByDay) {
   });
 }
 
+function normalizeCalendarEvents(payload) {
+  const items = Array.isArray(payload) ? payload : Array.isArray(payload?.events) ? payload.events : [];
+
+  return items
+    .map((event) => {
+      const start = event?.start ? new Date(event.start) : null;
+      const end = event?.end ? new Date(event.end) : null;
+
+      if (!start || !end || Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+        return null;
+      }
+
+      return {
+        title: event?.title || 'Foglalt időpont',
+        start,
+        end
+      };
+    })
+    .filter(Boolean);
+}
+
 async function loadCalendarAvailability() {
   if (!availabilityList) return;
 
   availabilityList.innerHTML = '<p class="availability__empty">Szabad időpontok betöltése…</p>';
 
   try {
-    const response = await fetch(publicCalendarIcsUrl, { cache: 'no-store' });
+    const response = await fetch(publicCalendarDataUrl, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`Hiba a naptár betöltésénél: ${response.status}`);
     }
 
-    const icsText = await response.text();
-    const events = parseIcsEvents(icsText);
+    const payload = await response.json();
+    const events = normalizeCalendarEvents(payload);
     const slotsByDay = buildAvailableSlots(events);
 
     if (!slotsByDay.size) {
