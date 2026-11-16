@@ -200,20 +200,298 @@ if (galleryTrack && galleryPrev && galleryNext) {
   });
 }
 
-/* Contact form — no backend wired up yet, so just confirm receipt locally */
-const form = document.getElementById('contactForm');
-const status = document.getElementById('formStatus');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (!form.checkValidity()) {
-    status.textContent = 'Kérjük, tölts ki minden mezőt.';
+/* Public Calendar availability */
+const publicCalendarIcsUrl = 'https://calendar.google.com/calendar/ical/damrsmurf4@gmail.com/public/basic.ics';
+const availabilityList = document.getElementById('availabilityList');
+
+function parseIcsDate(value) {
+  if (!value) return null;
+  const cleaned = value.trim();
+
+  if (/^\d{8}$/.test(cleaned)) {
+    const year = Number(cleaned.slice(0, 4));
+    const month = Number(cleaned.slice(4, 6)) - 1;
+    const day = Number(cleaned.slice(6, 8));
+    return new Date(year, month, day);
+  }
+
+  const match = cleaned.match(/^([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2})([0-9]{2})([0-9]{2})(Z)?$/);
+  if (!match) return null;
+
+  const [, year, month, day, hours, minutes, seconds, isUtc] = match;
+
+  if (isUtc === 'Z') {
+    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hours), Number(minutes), Number(seconds)));
+  }
+
+  return new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    Number(hours),
+    Number(minutes),
+    Number(seconds)
+  );
+}
+
+function parseIcsEvents(icsText) {
+  const blocks = icsText.split('BEGIN:VEVENT');
+  return blocks.slice(1).map((block) => {
+    const startLine = block.match(/DTSTART[^:]*:(.+)/);
+    const endLine = block.match(/DTEND[^:]*:(.+)/);
+    const summaryLine = block.match(/SUMMARY:(.+)/);
+
+    const start = startLine ? parseIcsDate(startLine[1].trim()) : null;
+    const end = endLine ? parseIcsDate(endLine[1].trim()) : null;
+
+    if (!start || !end) return null;
+
+    return {
+      title: summaryLine ? summaryLine[1].trim() : 'Foglalt időpont',
+      start,
+      end
+    };
+  }).filter(Boolean);
+}
+
+function formatDateInput(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function formatSlotDate(date) {
+  return new Intl.DateTimeFormat('hu-HU', {
+    month: 'short',
+    day: 'numeric',
+    weekday: 'short'
+  }).format(date);
+}
+
+function formatSlotTime(date) {
+  return new Intl.DateTimeFormat('hu-HU', {
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
+}
+
+function buildAvailableSlots(events) {
+  const availableByDay = new Map();
+  const now = new Date();
+  now.setMinutes(0, 0, 0);
+
+  for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
+    const dayStart = new Date(now);
+    dayStart.setDate(now.getDate() + dayOffset);
+    dayStart.setHours(6, 0, 0, 0);
+
+    const dayEnd = new Date(dayStart);
+    dayEnd.setHours(20, 0, 0, 0);
+
+    const blockedRanges = [];
+
+    events.forEach((event) => {
+      const eventStart = new Date(event.start);
+      const eventEnd = new Date(event.end);
+
+      const overlapStart = new Date(Math.max(dayStart.getTime(), eventStart.getTime()));
+      const overlapEnd = new Date(Math.min(dayEnd.getTime(), eventEnd.getTime()));
+
+      if (overlapEnd > overlapStart) {
+        blockedRanges.push({
+          start: overlapStart,
+          end: overlapEnd
+        });
+      }
+    });
+
+    const ranges = [];
+    let cursor = new Date(dayStart);
+
+    blockedRanges.sort((a, b) => a.start - b.start);
+
+    blockedRanges.forEach((range) => {
+      if (cursor < range.start) {
+        ranges.push({
+          start: new Date(cursor),
+          end: new Date(range.start)
+        });
+      }
+      if (range.end > cursor) {
+        cursor = new Date(range.end);
+      }
+    });
+
+    if (cursor < dayEnd) {
+      ranges.push({
+        start: new Date(cursor),
+        end: new Date(dayEnd)
+      });
+    }
+
+    const cleaned = ranges
+      .filter((range) => range.end > range.start)
+      .map((range) => {
+        const start = new Date(range.start);
+        const end = new Date(range.end);
+        const startText = `${String(start.getHours()).padStart(2, '0')}:${String(start.getMinutes()).padStart(2, '0')}`;
+        const endText = `${String(end.getHours()).padStart(2, '0')}:${String(end.getMinutes()).padStart(2, '0')}`;
+
+        return {
+          date: formatDateInput(start),
+          start: startText,
+          end: endText,
+          label: `${startText}–${endText}`,
+          durationHours: Math.round((end - start) / 3600000)
+        };
+      });
+
+    availableByDay.set(formatDateInput(dayStart), cleaned);
+  }
+
+  return availableByDay;
+}
+
+function renderAvailabilityCalendar(slotsByDay) {
+  if (!availabilityList) return;
+
+  const dayNames = ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'];
+  const nextDays = Array.from(slotsByDay.keys()).slice(0, 7);
+
+  if (!nextDays.length) {
+    availabilityList.innerHTML = '<p class="availability__empty">Jelenleg nincs szabad időpont a közeljövőben.</p>';
     return;
   }
 
-  status.textContent = 'Köszönjük! Hamarosan felvesszük veled a kapcsolatot.';
-  form.reset();
-  setTimeout(closeContactModal, 1200);
-});
+  availabilityList.innerHTML = nextDays.map((dateKey) => {
+    const dayDate = new Date(`${dateKey}T12:00:00`);
+    const dayName = dayNames[dayDate.getDay()];
+    const daySlots = slotsByDay.get(dateKey) || [];
+
+    return `
+      <div class="availability__day">
+        <p class="availability__day-label">${dayName}<br>${formatSlotDate(dayDate)}</p>
+        <div class="availability__day-slots">
+          ${daySlots.map((slot) => `
+            <button type="button" class="availability__slot" data-date="${slot.date}" data-start="${slot.start}" data-end="${slot.end}" data-duration="${slot.durationHours}">${slot.label}</button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  availabilityList.querySelectorAll('.availability__slot').forEach((button) => {
+    button.addEventListener('click', () => {
+      const dateInput = document.getElementById('date');
+      const timeInput = document.getElementById('time');
+
+      if (dateInput && timeInput) {
+        dateInput.value = button.dataset.date;
+        timeInput.value = button.dataset.start;
+      }
+
+      openContactModal();
+    });
+  });
+}
+
+async function loadCalendarAvailability() {
+  if (!availabilityList) return;
+
+  availabilityList.innerHTML = '<p class="availability__empty">Szabad időpontok betöltése…</p>';
+
+  try {
+    const response = await fetch(publicCalendarIcsUrl, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`Hiba a naptár betöltésénél: ${response.status}`);
+    }
+
+    const icsText = await response.text();
+    const events = parseIcsEvents(icsText);
+    const slotsByDay = buildAvailableSlots(events);
+
+    if (!slotsByDay.size) {
+      availabilityList.innerHTML = '<p class="availability__empty">Jelenleg nincs szabad időpont a közeljövőben.</p>';
+      return;
+    }
+
+    renderAvailabilityCalendar(slotsByDay);
+  } catch (error) {
+    console.error(error);
+    availabilityList.innerHTML = '<p class="availability__empty">A szabad időpontok betöltése jelenleg nem érhető el.</p>';
+  }
+}
+
+setInterval(loadCalendarAvailability, 120000);
+
+/* Contact form */
+const form = document.getElementById('contactForm');
+const status = document.getElementById('formStatus');
+
+function getEndTime(startTime, durationHours) {
+  if (!startTime || !durationHours) return '';
+
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const startMinutes = hours * 60 + minutes;
+  const totalMinutes = startMinutes + Number(durationHours) * 60;
+
+  const endHours = Math.floor(totalMinutes / 60) % 24;
+  const endMinutes = totalMinutes % 60;
+  return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`;
+}
+
+if (form && status) {
+  const timeInput = document.getElementById('time');
+
+  const messageInput = document.getElementById('message');
+
+  if (messageInput) {
+    messageInput.setAttribute('placeholder', 'Van valami konkrét elképzelésed?');
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      status.textContent = 'Kérjük, tölts ki minden mezőt.';
+      return;
+    }
+
+    const formData = new FormData(form);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const phone = formData.get('phone');
+    const service = formData.get('service');
+    const date = formData.get('date');
+    const time = formData.get('time');
+    const message = formData.get('message');
+
+    const recipient = 'szeged@citadellahajszalon.hu';
+    const subject = encodeURIComponent(`Időpontkérés – ${name}`);
+    const emailBody = [
+      `Név: ${name}`,
+      `E-mail: ${email}`,
+      `Telefonszám: ${phone}`,
+      `Szolgáltatás: ${service}`,
+      `Kért dátum: ${date}`,
+      `Kért kezdés: ${time}`,
+      '',
+      'Üzenet:',
+      message
+    ].join('\n');
+
+    status.textContent = 'Az űrlap elküldése folyamatban...';
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
+
+    form.reset();
+    setTimeout(() => {
+      status.textContent = 'Köszönjük! Az e-mailben elküldtük a kérésedet. Hamarosan válaszolunk.';
+      setTimeout(closeContactModal, 1600);
+    }, 400);
+  });
+}
+
+loadCalendarAvailability();
 
 /* Contact modal */
 const openContactBtn = document.getElementById('openContactForm');
@@ -236,18 +514,30 @@ function closeContactModal() {
   if (lastFocusedEl) lastFocusedEl.focus();
 }
 
-openContactBtn.addEventListener('click', openContactModal);
-closeContactBtn.addEventListener('click', closeContactModal);
-contactOverlay.addEventListener('click', (e) => {
-  if (e.target === contactOverlay) closeContactModal();
-});
+if (openContactBtn) {
+  openContactBtn.addEventListener('click', openContactModal);
+}
+
+if (closeContactBtn) {
+  closeContactBtn.addEventListener('click', closeContactModal);
+}
+
+if (contactOverlay) {
+  contactOverlay.addEventListener('click', (e) => {
+    if (e.target === contactOverlay) closeContactModal();
+  });
+}
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !contactOverlay.hidden) closeContactModal();
+  if (e.key === 'Escape' && contactOverlay && !contactOverlay.hidden) closeContactModal();
 });
-form.addEventListener('submit', () => {
-  if (form.checkValidity()) {
-    setTimeout(closeContactModal, 1200);
-  }
-});
+
+if (form) {
+  form.addEventListener('submit', () => {
+    if (form.checkValidity()) {
+      setTimeout(closeContactModal, 1200);
+    }
+  });
+}
 
 /* Contact form — no backend wired up yet, so just confirm receipt locally */

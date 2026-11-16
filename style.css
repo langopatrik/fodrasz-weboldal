@@ -386,6 +386,22 @@ ul,dl,table{margin:0;padding:0;list-style:none}
 .contact__list dd{margin:0;font-weight:600}
 .contact__list a:hover{color:var(--forest-700)}
 
+.availability{margin-top:1.6rem;padding:1rem 0 0;border-top:1px solid rgba(14,42,22,.1)}
+.availability__calendar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
+.availability__day{background:var(--parchment);border:1px solid rgba(14,42,22,.12);border-radius:12px;padding:1rem}
+.availability__day-label{margin:0 0 .85rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.availability__day-slots{display:flex;flex-direction:column;gap:.55rem}
+.availability__slot{
+  border:1px solid rgba(14,42,22,.15);border-radius:999px;padding:.6rem .7rem;
+  background:rgba(34,77,56,.04);color:var(--ink);font:inherit;font-size:.8rem;cursor:pointer;
+  text-align:left;transition:border-color .2s, background .2s, transform .2s;
+}
+.availability__slot:hover{border-color:var(--forest-700);background:rgba(34,77,56,.08);transform:translateY(-1px)}
+.availability__empty{margin:0;color:var(--ink-soft);font-size:.9rem}
+.contact__lead{margin-top:1.25rem}
+
+@media (max-width:700px){.availability__calendar{grid-template-columns:1fr}}
+
 .hours{width:100%;margin-top:1.6rem;border-collapse:collapse}
 .hours tr{border-top:1px solid rgba(14,42,22,.1)}
 .hours th,.hours td{padding:.7rem 0;text-align:left;font-weight:400;color:var(--ink-soft);font-size:.9rem}

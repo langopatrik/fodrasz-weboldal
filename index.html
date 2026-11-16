@@ -352,7 +352,7 @@
         <dl class="contact__list">
           <div><dt>Cím</dt><dd>Bartók tér 03-as pavilon, 6725 Szeged</dd></div>
           <div><dt>Telefon</dt><dd><a href="tel:+36304101310">+36 30 410 1310</a></dd></div>
-          <div><dt>E-mail</dt><dd><a href="mailto:hello@citadellahajszalon.hu">hello@citadellahajszalon.hu</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:szeged@citadellahajszalon.hu">szeged@citadellahajszalon.hu</a></dd></div>
         </dl>
 
         <table class="hours">
@@ -360,7 +360,10 @@
             <tr><th>A nyitvatartás egyelőre változó. Kérlek egyeztessünk időpontot.</th></tr>
           </tbody>
         </table>
-
+        <div class="availability" aria-live="polite">
+          <p class="eyebrow eyebrow--light">Szabad időpontok</p>
+          <div id="availabilityList" class="availability__calendar" aria-live="polite"></div>
+        </div>
         <p class="contact__lead">Írj üzenetet, vagy hívj telefonon. Szívesen segítek kiválasztani a hozzád illő stílust, legyen az egy egyszerű vágás vagy egy vadonatúj szín.</p>
 
         <p class="contact__note">Rajzlapokkal, cukorkával és mesekönyvekkel várom a kicsiket, amíg te a székben ülsz.</p>
@@ -372,8 +375,6 @@
           <a href="https://wa.me/36304101310" aria-label="WhatsApp / Viber" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3c-4.7 0-8.5 3.8-8.5 8.5 0 1.5.4 2.9 1.1 4.2L3 21l5.5-1.4c1.2.6 2.6 1 4 1h.1c4.7 0 8.5-3.8 8.5-8.5S16.7 3 12 3z"/><path d="M8.7 8.4c.2-.5.4-.5.7-.5h.5c.2 0 .4 0 .6.4.2.5.7 1.7.8 1.8.1.1.1.3 0 .5-.1.2-.1.3-.3.5-.1.2-.3.3-.4.5-.2.2-.3.3-.1.6.2.4.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.6-.1.2-.2.7-.8.9-1 .2-.2.3-.2.6-.1.2.1 1.5.7 1.8.9.3.1.5.2.5.3.1.2.1.9-.2 1.6-.3.7-1.7 1.4-2.3 1.4-.6.1-1.2.1-2-.1-.5-.1-1.1-.3-1.9-.7-3.3-1.4-5.4-4.7-5.6-5-.2-.2-1.3-1.7-1.3-3.2 0-1.5.8-2.3 1.1-2.6z"/></svg></a>
           <a href="https://linktr.ee/Citadellahajszalon" aria-label="Linktree" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2v20M12 8l-5-5M12 8l5-5M12 14l-6-6M12 14l6-6M7 19l5-5 5 5"/></svg></a>
         </div>
-
-        <button type="button" class="btn btn--primary contact__cta" id="openContactForm">Üzenet küldése</button>
       </div>
 
       <div class="map-embed reveal">
@@ -385,7 +386,7 @@
   <div class="modal-overlay" id="contactModalOverlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button type="button" class="modal__close" id="closeContactForm" aria-label="Bezárás">&times;</button>
-      <h2 id="modalTitle">Írj nekünk</h2>
+      <h2 id="modalTitle">Kérj időpontot</h2>
       <form class="contact__form" id="contactForm" novalidate>
         <div class="field">
           <label for="name">Név</label>
@@ -396,10 +397,33 @@
           <input id="email" name="email" type="email" autocomplete="email" required>
         </div>
         <div class="field">
-          <label for="message">Üzenet</label>
-          <textarea id="message" name="message" rows="4" placeholder="Meséld el, milyen stílusra vagy színre gondoltál…" required></textarea>
+          <label for="phone">Telefonszám</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+36 30 123 4567" required>
         </div>
-        <button type="submit" class="btn btn--primary btn--full">Üzenet küldése</button>
+        <div class="field">
+          <label for="service">Szolgáltatás</label>
+          <select id="service" name="service" required>
+            <option value="">Válassz szolgáltatást</option>
+            <option value="Hajvágás">Hajvágás</option>
+            <option value="Színezés / festés">Színezés / festés</option>
+            <option value="Frizura / styling">Frizura / styling</option>
+            <option value="Gyerek hajvágás">Gyerek hajvágás</option>
+            <option value="Egyéb">Egyéb</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="date">Kért dátum</label>
+          <input id="date" name="date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="time">Kért kezdés</label>
+          <input id="time" name="time" type="time" required>
+        </div>
+        <div class="field">
+          <label for="message">Üzenet</label>
+          <textarea id="message" name="message" rows="4" placeholder="Van valami konkrét elképzelésed?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Időpont kérése</button>
         <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
