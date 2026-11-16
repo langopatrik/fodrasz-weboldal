@@ -464,17 +464,59 @@ function getEndTime(startTime, durationHours) {
 
 if (form && status) {
   const timeInput = document.getElementById('time');
-
   const messageInput = document.getElementById('message');
+  const recipientEmail = 'szeged@citadellahajszalon.hu';
+  const isConfiguredFormspree = Boolean(
+    form.action &&
+    form.action.includes('formspree.io') &&
+    !form.action.includes('your-form-id')
+  );
 
   if (messageInput) {
     messageInput.setAttribute('placeholder', 'Van valami konkrét elképzelésed?');
   }
 
+  const sendByMailto = () => {
+    const formData = new FormData(form);
+    const name = String(formData.get('name') || '');
+    const email = String(formData.get('email') || '');
+    const phone = String(formData.get('phone') || '');
+    const service = String(formData.get('service') || '');
+    const date = String(formData.get('date') || '');
+    const time = String(formData.get('time') || '');
+    const message = String(formData.get('message') || '');
+
+    const subject = encodeURIComponent(`Időpontkérés – ${name}`);
+    const body = encodeURIComponent([
+      `Név: ${name}`,
+      `E-mail: ${email}`,
+      `Telefonszám: ${phone}`,
+      `Szolgáltatás: ${service}`,
+      `Kért dátum: ${date}`,
+      `Kért kezdés: ${time}`,
+      '',
+      'Üzenet:',
+      message
+    ].join('\n'));
+
+    window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+    form.reset();
+    status.textContent = 'A kérésed elküldve, viszont ezzel még nem foglaltad le az időpontot. Egyeztetés után bekerül a naptárba.';
+    setTimeout(() => {
+      closeContactModal();
+    }, 2200);
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) {
       status.textContent = 'Kérjük, tölts ki minden mezőt.';
+      return;
+    }
+
+    if (!isConfiguredFormspree) {
+      status.textContent = 'Az üzenet elküldése folyamatban...';
+      sendByMailto();
       return;
     }
 
@@ -494,10 +536,10 @@ if (form && status) {
       }
 
       form.reset();
-      status.textContent = 'Köszönjük! Az üzenetedet elküldtük. Hamarosan válaszolunk.';
+      status.textContent = 'A kérésed elküldve, viszont ezzel még nem foglaltad le az időpontot. Egyeztetés után bekerül a naptárba.';
       setTimeout(() => {
         closeContactModal();
-      }, 1600);
+      }, 2200);
     } catch (error) {
       console.error(error);
       status.textContent = 'Sajnos az üzenet küldése közben hiba történt. Kérjük, próbáld meg újra vagy írj közvetlenül e-mailben.';
