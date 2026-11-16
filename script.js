@@ -471,44 +471,37 @@ if (form && status) {
     messageInput.setAttribute('placeholder', 'Van valami konkrét elképzelésed?');
   }
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) {
       status.textContent = 'Kérjük, tölts ki minden mezőt.';
       return;
     }
 
-    const formData = new FormData(form);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
-    const service = formData.get('service');
-    const date = formData.get('date');
-    const time = formData.get('time');
-    const message = formData.get('message');
-
-    const recipient = 'szeged@citadellahajszalon.hu';
-    const subject = encodeURIComponent(`Időpontkérés – ${name}`);
-    const emailBody = [
-      `Név: ${name}`,
-      `E-mail: ${email}`,
-      `Telefonszám: ${phone}`,
-      `Szolgáltatás: ${service}`,
-      `Kért dátum: ${date}`,
-      `Kért kezdés: ${time}`,
-      '',
-      'Üzenet:',
-      message
-    ].join('\n');
-
     status.textContent = 'Az űrlap elküldése folyamatban...';
-    window.location.href = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
 
-    form.reset();
-    setTimeout(() => {
-      status.textContent = 'Köszönjük! Az e-mailben elküldtük a kérésedet. Hamarosan válaszolunk.';
-      setTimeout(closeContactModal, 1600);
-    }, 400);
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('A Formspree elküldése sikertelen volt.');
+      }
+
+      form.reset();
+      status.textContent = 'Köszönjük! Az üzenetedet elküldtük. Hamarosan válaszolunk.';
+      setTimeout(() => {
+        closeContactModal();
+      }, 1600);
+    } catch (error) {
+      console.error(error);
+      status.textContent = 'Sajnos az üzenet küldése közben hiba történt. Kérjük, próbáld meg újra vagy írj közvetlenül e-mailben.';
+    }
   });
 }
 
