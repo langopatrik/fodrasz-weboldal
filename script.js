@@ -201,7 +201,7 @@ if (galleryTrack && galleryPrev && galleryNext) {
 }
 
 /* Public Calendar availability */
-const publicCalendarIcsUrl = 'https://calendar.google.com/calendar/ical/damrsmurf4@gmail.com/public/basic.ics';
+const publicCalendarIcsUrl = '/api/calendar.ics';
 const availabilityList = document.getElementById('availabilityList');
 
 function parseIcsDate(value) {
