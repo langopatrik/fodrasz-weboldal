@@ -449,6 +449,8 @@ setInterval(loadCalendarAvailability, 120000);
 /* Contact form */
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
+const successModalOverlay = document.getElementById('successModalOverlay');
+const successSlotText = document.getElementById('successSlotText');
 
 function getEndTime(startTime, durationHours) {
   if (!startTime || !durationHours) return '';
@@ -460,6 +462,44 @@ function getEndTime(startTime, durationHours) {
   const endHours = Math.floor(totalMinutes / 60) % 24;
   const endMinutes = totalMinutes % 60;
   return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`;
+}
+
+function formatRequestedSlot(dateValue, timeValue) {
+  if (!dateValue) return 'Kért időpont: nem lett megadva';
+
+  const parsedDate = new Date(`${dateValue}T${timeValue || '00:00'}`);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return `Kért időpont: ${dateValue}${timeValue ? ` ${timeValue}` : ''}`;
+  }
+
+  const day = parsedDate.toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric' });
+  const time = timeValue ? ` ${timeValue}` : '';
+  return `Kért időpont: ${day}${time}`;
+}
+
+function openSuccessModal(dateValue, timeValue) {
+  if (successModalOverlay) {
+    successModalOverlay.hidden = false;
+  }
+  if (successSlotText) {
+    successSlotText.textContent = formatRequestedSlot(dateValue, timeValue);
+  }
+  document.body.style.overflow = 'hidden';
+  closeContactModal();
+  const closeSuccessButton = document.getElementById('closeSuccessModalBtn');
+  if (closeSuccessButton) {
+    closeSuccessButton.focus();
+  }
+}
+
+function closeSuccessModal() {
+  if (successModalOverlay) {
+    successModalOverlay.hidden = true;
+  }
+  document.body.style.overflow = '';
+  if (lastFocusedEl) {
+    lastFocusedEl.focus();
+  }
 }
 
 if (form && status) {
@@ -501,10 +541,7 @@ if (form && status) {
 
     window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
     form.reset();
-    status.textContent = 'A kérésed elküldve, viszont ezzel még nem foglaltad le az időpontot. Egyeztetés után bekerül a naptárba.';
-    setTimeout(() => {
-      closeContactModal();
-    }, 2200);
+    openSuccessModal(date, time);
   };
 
   form.addEventListener('submit', async (e) => {
@@ -513,6 +550,10 @@ if (form && status) {
       status.textContent = 'Kérjük, tölts ki minden mezőt.';
       return;
     }
+
+    const formData = new FormData(form);
+    const dateValue = String(formData.get('date') || '');
+    const timeValue = String(formData.get('time') || '');
 
     if (!isConfiguredFormspree) {
       status.textContent = 'Az üzenet elküldése folyamatban...';
@@ -525,7 +566,7 @@ if (form && status) {
     try {
       const response = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: {
           Accept: 'application/json'
         }
@@ -536,10 +577,7 @@ if (form && status) {
       }
 
       form.reset();
-      status.textContent = 'A kérésed elküldve, viszont ezzel még nem foglaltad le az időpontot. Egyeztetés után bekerül a naptárba.';
-      setTimeout(() => {
-        closeContactModal();
-      }, 2200);
+      openSuccessModal(dateValue, timeValue);
     } catch (error) {
       console.error(error);
       status.textContent = 'Sajnos az üzenet küldése közben hiba történt. Kérjük, próbáld meg újra vagy írj közvetlenül e-mailben.';
@@ -576,6 +614,25 @@ if (openContactBtn) {
 
 if (closeContactBtn) {
   closeContactBtn.addEventListener('click', closeContactModal);
+}
+
+if (successModalOverlay) {
+  const closeSuccessBtn = document.getElementById('closeSuccessModal');
+  const closeSuccessAction = document.getElementById('closeSuccessModalBtn');
+
+  if (closeSuccessBtn) {
+    closeSuccessBtn.addEventListener('click', closeSuccessModal);
+  }
+
+  if (closeSuccessAction) {
+    closeSuccessAction.addEventListener('click', closeSuccessModal);
+  }
+
+  successModalOverlay.addEventListener('click', (e) => {
+    if (e.target === successModalOverlay) {
+      closeSuccessModal();
+    }
+  });
 }
 
 if (contactOverlay) {
